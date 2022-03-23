@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}
+    纵横小纵横中文网爬虫数据分析-分类统计
+{% endblock %}
+{% block context %}
+    <section class="bg-soft-grey-color-2 p-t-50 p-b-50">
+        <div class="container">
+            <div class="common-heading-2 text-center m-b-40">
+                <span class="tagline">纵横中文网小说爬虫数据分析-数据统计</span>
+                <h5 class="title">使用echars技术将从纵横中文网爬取到的数据进行分析，并绘制出条形图和饼图</h5>
+            </div>
+            <div class="row justify-content-center">
+                <div class="card">
+                    <div class="card-body border rounded">
+                        <div id="chart-bar" style="width: 1160px;height:400px;"></div>
+                        <div id="chart-pie" style="width: 1160px;height:400px;"></div>
+                    </div>
+                    <script>
+                        $(document).ready(function (){
+                        var barChart = echarts.init(document.getElementById("chart-bar"));
+                        var pieChart = echarts.init(document.getElementById("chart-pie"));
+                        barChart.showLoading({
+                            text: '数据正在努力加载...',
+                            textStyle: { fontSize : 30 , color: '#444' },
+                            effectOption: {backgroundColor: 'rgba(0, 0, 0, 0)'}
+                        });
+                        pieChart.showLoading({
+                            text: '数据正在努力加载...',
+                            textStyle: { fontSize : 30 , color: '#444' },
+                            effectOption: {backgroundColor: 'rgba(0, 0, 0, 0)'}
+                        });
+                        $.ajax({
+                            type:"GET",
+                            url:"/getAllBooks",
+                            dataType:"json",
+                            success:function(data){
+                                barChart.setOption({
+                                    title:{
+                                        text:"纵横小说网小说数据分析-分类统计-柱状图",
+                                        left:"center",
+                                    },
+                                    tooltip:{
+                                        show:'true',
+                                        trigger:'item',
+                                    },
+                                    xAxis:{
+                                        type:'category',
+                                        name:'类型',
+                                    },
+                                    yAxis:{
+                                        type:'value',
+                                        name:'数量'
+                                    },
+                                    series:[{
+                                        type:'bar',
+                                        data:data,
+                                        showBackground: true,
+                                        barMinHeight: 10,
+                                        backgroundStyle: {
+                                            color: 'rgb(112, 91, 91)'
+                                        }
+                                    }],
+                                });
+                                barChart.hideLoading();
+                                pieChart.setOption({
+                                    title:{
+                                        text:"纵横小说网小说数据分析-分类统计-饼图",
+                                        left:"center",
+                                    },
+                                    tooltip:{
+                                        show:true,
+                                        trigger:'axis'
+                                    },
+                                    legend:{
+                                        orient: 'vertical',
+                                        left: 'left'
+                                    },
+                                    minAngle:10,
+                                    series:[{
+                                        type:'pie',
+                                        data:data,
+                                        colorBy:'data',
+                                        legendHoverLink :true,
+                                        center:['30%','55%'],
+                                        minAngle:10,
+                                    },{
+                                        type:'pie',
+                                        data:data,
+                                        colorBy:'data',
+                                        legendHoverLink :true,
+                                        center:['75%','55%'],
+                                        radius: ['40%', '70%'],
+                                        avoidLabelOverlap: false,
+                                        minAngle:10,
+                                        itemStyle: {
+                                            borderRadius: 10,
+                                            borderColor: '#fff',
+                                            borderWidth: 2
+                                          },
+                                          label: {
+                                            show: false,
+                                            position: 'center'
+                                          },
+                                          emphasis: {
+                                            label: {
+                                              show: true,
+                                              fontSize: '40',
+                                              fontWeight: 'bold'
+                                            }
+                                          },
+                                          labelLine: {
+                                            show: false
+                                          },
+                                    }],
+                                });
+                                pieChart.hideLoading();
+                            }
+                        });
+
+                    });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

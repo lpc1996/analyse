@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}
+    纵横中文网爬虫数据分析
+{% endblock %}
+
+{% block context %}
+    <section class="bg-soft-grey-color p-t-130 p-b-130">
+        <div class="container">
+            <div class="common-heading-2 text-center m-b-40">
+                <span class="tagline">纵横中文网小说爬虫数据分析</span>
+                <h2 class="title">
+                    本项目从纵横中文网爬取小说数据进行分析、统计，并进行数据的可视化展示；
+                    应用Python爬虫、Flask框架、Echarts、WordCloud等技术实现。
+                </h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-10 wow fadeInUp">
+                    <a href="{{ url_for('book',page_id=1,rows=50) }}">
+                        <div class="icon-boxes-v4 m-t-30">
+                            <div class="icon">
+                                <img class="img-fluid" src="/static/picture/book_2.png" alt="Icon">
+                            </div>
+                            <h5 class="title">可视化数据展示</h5>
+                            <p>展示纵横中文网爬取到的数据</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-10 wow fadeInUp">
+                    <a href="/statistics">
+                        <div class="icon-boxes-v4 m-t-30">
+                            <div class="icon">
+                                <img class="img-fluid" src="/static/picture/chart-2.png" alt="Icon">
+                            </div>
+                            <h5 class="title">分类统计</h5>
+                            <p>使用ECharts对爬取到的小说数据进行统计分析</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-10 wow fadeInUp">
+                    <a href="/word">
+                        <div class="icon-boxes-v4 m-t-30">
+                            <div class="icon">
+                                <img class="img-fluid" src="/static/picture/word-1.png" alt="Icon">
+                            </div>
+                            <h5 class="title">词汇分析</h5>
+                            <p>分析小说描述中的词汇权重</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-10 wow fadeInUp">
+                    <a href="/team">
+                        <div class="icon-boxes-v4 m-t-30">
+                            <div class="icon">
+                                <img class="img-fluid" src="/static/picture/team-2.png" alt="Icon">
+                            </div>
+                            <h5 class="title">团队</h5>
+                            <p>团队及成员介绍</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
